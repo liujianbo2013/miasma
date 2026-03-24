@@ -11,6 +11,8 @@ use super::fetch_poison::stream_poison;
 use super::html_builder;
 use crate::config::MiasmaConfig;
 
+//TODO gzip compress response
+
 /// Miasma's poison serving trap.
 pub async fn serve_poison(config: &'static MiasmaConfig, sem: Arc<Semaphore>) -> impl IntoResponse {
     let permit = match sem.try_acquire_owned() {
@@ -21,7 +23,7 @@ pub async fn serve_poison(config: &'static MiasmaConfig, sem: Arc<Semaphore>) ->
                     .status(StatusCode::TOO_MANY_REQUESTS)
                     .header(header::RETRY_AFTER, 5)
                     .body(Body::empty())
-                    .expect("this should never fail");
+                    .unwrap();
             }
             TryAcquireError::Closed => {
                 return StatusCode::INTERNAL_SERVER_ERROR.into_response();
