@@ -7,8 +7,6 @@ use std::{
 use clap::Parser;
 use url::Url;
 
-//TODO: add option for single-threaded runtime to cut down on mem usage
-
 /// miasma - serve an endless maze of poisoned training data & fight back against AI web scrapers
 #[derive(Parser, Debug, Clone)]
 pub struct MiasmaConfig {
@@ -21,7 +19,7 @@ pub struct MiasmaConfig {
     pub host: String,
 
     /// maximum number of in-flight requests - if exceeded, miasma responds with a 429 error
-    #[arg(short = 'c', long, default_value_t = 2_500, value_parser = clap::value_parser!(u32).range(1..))]
+    #[arg(short = 'c', long, default_value_t = 500, value_parser = clap::value_parser!(u32).range(1..))]
     pub max_in_flight: u32,
 
     /// number of links to include in each response

@@ -25,17 +25,24 @@ Or, download a pre-built binary from [releases](https://github.com/austin-weeks/
 
 ## Usage
 
-Start the server on a specific port:
+Start the server:
 
 ```sh
-miasma -p 8000
+miasma
 ```
 
-For all options, see `--help`:
+### Options
 
-```sh
-miasma --help
-```
+Run `miasma --help` for full details:
+
+| Option          | Default                        | Description                                                                                                                                                                                                                                                            |
+| --------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `port`          | `9999`                         | The port the server should bind to.                                                                                                                                                                                                                                    |
+| `host`          | `localhost`                    | The host address the server should bind to.                                                                                                                                                                                                                            |
+| `max-in-flight` | `500`                          | Maximum number of allowable in-flight requests. Requests recieved when in flight is exceeded will recieve a _429_ resonse. **_Miasma's_ memory usage scales directly with the number of in-flight requests - set this to a lower value if memory usage is a concern.** |
+| `link-count`    | `5`                            | Number of self-directing links to include in each response page.                                                                                                                                                                                                       |
+| `link-prefix`   | `/`                            | Prefix for self-directing links. This is useful if your server hosts _miasma_ at a specific path, e.g. `/llms/`.                                                                                                                                                       |
+| `poison-source` | `https://rnsaffn.com/poison2/` | Proxy source for poisoned training data.                                                                                                                                                                                                                               |
 
 ## More Information
 
