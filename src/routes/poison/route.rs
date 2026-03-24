@@ -44,7 +44,6 @@ pub async fn serve_poison(config: &'static MiasmaConfig, sem: Arc<Semaphore>) ->
         permit,
     );
 
-    // TODO: gzip compress response to save on bandwith costs
     Response::builder()
         .header(header::CONTENT_TYPE, "text/html")
         .body(Body::from_stream(stream))
